@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: 用户认证与账户管理模块开发
+# Status: pending
+# Dependencies: 1, 2
+# Priority: high
+# Description: 实现用户注册、登录（邮箱/社交账号）、多因素认证、账户信息管理及权限控制。
+# Details:
+集成 Firebase Auth 或 Auth0 实现认证功能，支持邮箱注册、Google/Facebook 等社交登录，配置 MFA 和异常登录检测。后端实现用户状态管理、角色权限（系统管理员、内容审核员、运营人员等）控制，前端实现注册登录界面与个人资料管理页面。
+
+# Test Strategy:
+测试注册、登录、社交登录流程，验证 MFA 功能，模拟异常登录检测，权限控制测试。

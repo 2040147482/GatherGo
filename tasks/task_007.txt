@@ -1,0 +1,11 @@
+# Task ID: 7
+# Title: 地图集成与导航功能开发
+# Status: pending
+# Dependencies: 2, 5
+# Priority: medium
+# Description: 集成 Mapbox/Google Maps 实现活动地图定位、导航及地图筛选功能。
+# Details:
+前端集成 Mapbox 或 Google Maps SDK，展示活动地理位置，支持地图缩放、导航指引，后端提供活动地理坐标数据接口，支持地图范围内活动筛选功能，兼容移动端交互体验。
+
+# Test Strategy:
+地图加载性能测试，定位准确性测试，导航路径正确性验证，移动端地图交互测试。

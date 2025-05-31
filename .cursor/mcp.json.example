@@ -1,0 +1,75 @@
+{
+    "mcpServers": {
+        "taskmaster-ai": {
+            "command": "cmd",
+            "args": [
+                "/c",
+                "npx",
+                "--package=task-master-ai",
+                "task-master-ai"
+            ],
+            "env": {
+                "ANTHROPIC_API_KEY": "your-anthropic-api-key-here",
+                "PERPLEXITY_API_KEY": "your-perplexity-api-key-here",
+                "MODEL": "claude-3-7-sonnet-20250219",
+                "PERPLEXITY_MODEL": "sonar-pro",
+                "MAX_TOKENS": "64000",
+                "TEMPERATURE": "0.2",
+                "DEFAULT_SUBTASKS": "5",
+                "DEFAULT_PRIORITY": "medium"
+            }
+        },
+        "fs": {
+            "isActive": true,
+            "command": "cmd",
+            "args": [
+                "/c",
+                "npx",
+                "-y",
+                "@smithery/cli@latest",
+                "run",
+                "@bunasQ/fs",
+                "--key",
+                "your-smithery-key-here"
+            ],
+            "name": "fs"
+        },
+        "github": {
+            "isActive": true,
+            "name": "github",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "npx",
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "your-github-pat-here"
+            }
+        },
+        "git": {
+            "isActive": true,
+            "command": "uvx",
+            "args": [
+                "mcp-server-git"
+            ],
+            "name": "git"
+        },
+        "desktop-commander": {
+            "isActive": true,
+            "command": "cmd",
+            "args": [
+                "/c",
+                "npx",
+                "-y",
+                "@smithery/cli@latest",
+                "run",
+                "@wonderwhy-er/desktop-commander",
+                "--key",
+                "your-smithery-key-here"
+            ],
+            "name": "desktop-commander"
+        }
+    }
+} 

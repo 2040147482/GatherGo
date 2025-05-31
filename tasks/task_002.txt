@@ -1,0 +1,11 @@
+# Task ID: 2
+# Title: 数据库设计与建模
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: 设计并实现核心数据库表结构，包括用户、活动、标签、图片、报名等数据模型。
+# Details:
+基于《database-schema.md》设计 PostgreSQL 数据库，创建 users、events、event_categories、event_tags、event_images、registrations 等表，设置合理索引与外键约束，支持多语言字段预留。使用 TypeORM 或 Prisma 进行数据模型定义和迁移管理。
+
+# Test Strategy:
+通过数据库迁移脚本部署，验证表结构正确，字段类型及约束符合需求，进行 CRUD 操作测试。

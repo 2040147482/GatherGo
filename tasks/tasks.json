@@ -1,0 +1,328 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "项目初始化与基础设施搭建",
+      "description": "搭建项目基础架构，包括代码仓库、开发环境配置、CI/CD流水线搭建及基础服务部署。",
+      "details": "1) 创建 GitHub 仓库，配置分支策略；2) 搭建 Next.js + Tailwind CSS 前端框架；3) 搭建 Node.js (NestJS) 后端框架；4) 配置 PostgreSQL 数据库实例及 Redis 缓存服务；5) 配置 GitHub Actions 实现自动测试与部署；6) 配置 Vercel 或 AWS EC2 + RDS + S3 环境，确保 HTTPS 与 CDN 加速；7) 配置基础监控与日志收集。",
+      "testStrategy": "验证代码仓库权限管理，CI/CD 流水线触发与部署成功，基础服务可访问，环境变量正确配置。",
+      "priority": "high",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "创建GitHub仓库与分支策略配置",
+          "description": "使用GitHub CLI创建仓库并配置main/dev分支策略",
+          "details": "1) 运行命令创建仓库：\ngh repo create GatherGo --public --add-readme\n2) 配置分支保护规则：\n- main分支需PR审核+通过CI\n- dev分支需通过ESLint检查\n3) 设置CODEOWNERS文件：\n* @org/core-team",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 1
+        },
+        {
+          "id": 2,
+          "title": "前端框架初始化与TS配置",
+          "description": "使用create-next-app初始化Next.js项目并集成Tailwind",
+          "details": "1) 创建前端项目：\nnpx create-next-app@14 frontend --ts --eslint\n2) 安装Tailwind：\ncd frontend && npm install -D tailwindcss@3 postcss autoprefixer\n3) 初始化配置：\nnpx tailwindcss init -p\n4) 配置tailwind.config.ts内容模板",
+          "status": "done",
+          "dependencies": [
+            "1.1"
+          ],
+          "parentTaskId": 1
+        },
+        {
+          "id": 3,
+          "title": "NestJS后端项目初始化",
+          "description": "使用Nest CLI创建后端项目结构",
+          "details": "1) 全局安装NestJS CLI：\nnpm install -g @nestjs/cli\n2) 创建项目：\nnest new backend --strict\n3) 配置tsconfig.json：\n{\n  \"compilerOptions\": {\n    \"strictNullChecks\": true\n  }\n}",
+          "status": "done",
+          "dependencies": [
+            "1.1"
+          ],
+          "parentTaskId": 1
+        },
+        {
+          "id": 4,
+          "title": "PostgreSQL容器化部署",
+          "description": "通过Docker部署PostgreSQL实例并测试连接",
+          "details": "1) 启动容器：\ndocker run --name pg -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres:15\n2) 创建测试数据库：\ndocker exec -it pg psql -U postgres -c \"CREATE DATABASE gathergo_dev\"\n3) 配置.env文件：\nDB_URL=postgresql://postgres:secret@localhost:5432/gathergo_dev",
+          "status": "pending",
+          "dependencies": [
+            "1.3"
+          ],
+          "parentTaskId": 1
+        },
+        {
+          "id": 5,
+          "title": "Redis缓存服务配置",
+          "description": "部署Redis实例并集成到后端",
+          "details": "1) 启动Redis容器：\ndocker run --name redis -p 6379:6379 -d redis:7\n2) 安装ioredis：\nnpm install ioredis\n3) 创建Redis模块：\nnest g module redis\n4) 配置连接池参数",
+          "status": "pending",
+          "dependencies": [
+            "1.3"
+          ],
+          "parentTaskId": 1
+        },
+        {
+          "id": 6,
+          "title": "GitHub Actions CI流水线配置",
+          "description": "配置自动化测试与构建流水线",
+          "details": "1) 创建.github/workflows/ci.yml\n2) 配置jobs：\n- 前端lint/test\n- 后端unit test\n- E2E测试\n3) 缓存策略：\nuses: actions/cache@v3\nwith:\n  path: |\n    frontend/.next/cache\n    node_modules",
+          "status": "pending",
+          "dependencies": [
+            "1.1",
+            "1.2",
+            "1.3"
+          ],
+          "parentTaskId": 1
+        },
+        {
+          "id": 7,
+          "title": "AWS EC2实例配置",
+          "description": "通过CLI创建EC2实例并配置安全组",
+          "details": "1) 创建密钥对：\naws ec2 create-key-pair --key-name gathergo-key\n2) 启动实例：\naws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t3.micro\n3) 配置安全组：\n--security-group-ids sg-12345678\n4) 安装Docker环境",
+          "status": "pending",
+          "dependencies": [
+            "1.1"
+          ],
+          "parentTaskId": 1
+        },
+        {
+          "id": 8,
+          "title": "Vercel生产环境部署",
+          "description": "配置Next.js项目自动部署",
+          "details": "1) 安装Vercel CLI：\nnpm install -g vercel\n2) 链接项目：\nvercel link\n3) 配置vercel.json：\n{\n  \"buildCommand\": \"npm run build\",\n  \"outputDirectory\": \".next\"\n}",
+          "status": "pending",
+          "dependencies": [
+            "1.2"
+          ],
+          "parentTaskId": 1
+        },
+        {
+          "id": 9,
+          "title": "基础设施监控配置",
+          "description": "集成Sentry和Prometheus监控",
+          "details": "1) 安装Sentry：\nnpm install @sentry/nextjs\n2) 配置sentry.properties文件\n3) 添加Prometheus exporter：\napp.use(\n  promBundle({\n    includeMethod: true,\n    includePath: true\n  })\n)",
+          "status": "pending",
+          "dependencies": [
+            "1.2",
+            "1.3"
+          ],
+          "parentTaskId": 1
+        },
+        {
+          "id": 10,
+          "title": "跨项目环境变量统一管理",
+          "description": "配置dotenv与共享环境变量",
+          "details": "1) 创建.env.template文件\n2) 配置cross-env：\n\"scripts\": {\n  \"start\": \"cross-env NODE_ENV=production node dist/main\"\n}\n3) 添加环境校验脚本：\nif (!process.env.DB_URL) throw new Error('Missing DB_URL')",
+          "status": "pending",
+          "dependencies": [
+            "1.2",
+            "1.3"
+          ],
+          "parentTaskId": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "数据库设计与建模",
+      "description": "设计并实现核心数据库表结构，包括用户、活动、标签、图片、报名等数据模型。",
+      "details": "基于《database-schema.md》设计 PostgreSQL 数据库，创建 users、events、event_categories、event_tags、event_images、registrations 等表，设置合理索引与外键约束，支持多语言字段预留。使用 TypeORM 或 Prisma 进行数据模型定义和迁移管理。",
+      "testStrategy": "通过数据库迁移脚本部署，验证表结构正确，字段类型及约束符合需求，进行 CRUD 操作测试。",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 3,
+      "title": "用户认证与账户管理模块开发",
+      "description": "实现用户注册、登录（邮箱/社交账号）、多因素认证、账户信息管理及权限控制。",
+      "details": "集成 Firebase Auth 或 Auth0 实现认证功能，支持邮箱注册、Google/Facebook 等社交登录，配置 MFA 和异常登录检测。后端实现用户状态管理、角色权限（系统管理员、内容审核员、运营人员等）控制，前端实现注册登录界面与个人资料管理页面。",
+      "testStrategy": "测试注册、登录、社交登录流程，验证 MFA 功能，模拟异常登录检测，权限控制测试。",
+      "priority": "high",
+      "dependencies": [
+        1,
+        2
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 4,
+      "title": "活动发布与管理后端API开发",
+      "description": "开发活动发布、编辑、上下架、审核状态管理等核心后端接口。",
+      "details": "基于 NestJS 实现 RESTful API，支持用户提交活动信息（含表单数据、图片上传、标签选择、票务设置），接口支持活动状态流转（待审核、审核通过、驳回、上线、下架），集成 AI 审核系统接口，支持活动数据统计字段更新。",
+      "testStrategy": "接口单元测试，模拟活动发布全流程，验证状态变更及审核逻辑，接口安全与权限验证。",
+      "priority": "high",
+      "dependencies": [
+        2,
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 5,
+      "title": "活动浏览与详情页前端开发",
+      "description": "实现首页推荐、活动列表、多维筛选、活动详情页展示及用户互动功能。",
+      "details": "基于 Next.js 和 Tailwind CSS 开发响应式页面，首页实现智能排序推荐、轮播图、分类入口、城市定位；活动列表支持关键词搜索、类型、城市、日期、价格、标签等筛选；详情页展示活动基础信息、图文介绍、地图定位（集成 Mapbox/Google Maps）、购票跳转、评论/问答/分享功能。",
+      "testStrategy": "前端集成测试，UI 交互测试，响应式适配测试，地图定位准确性验证，购票跳转链接测试。",
+      "priority": "medium",
+      "dependencies": [
+        1,
+        4
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 6,
+      "title": "搜索功能与多维筛选实现",
+      "description": "搭建基于 Algolia 或 Elasticsearch 的全文搜索与多维筛选功能，支持高效活动检索。",
+      "details": "设计搜索索引结构，集成 Elasticsearch 或 Algolia，后端同步活动数据至搜索引擎，支持关键词搜索、类型、城市、日期、价格、标签等多维筛选条件，前端调用搜索接口实现动态筛选结果展示。",
+      "testStrategy": "搜索准确性测试，筛选条件组合测试，性能压力测试，搜索结果排序验证。",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        4,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 7,
+      "title": "地图集成与导航功能开发",
+      "description": "集成 Mapbox/Google Maps 实现活动地图定位、导航及地图筛选功能。",
+      "details": "前端集成 Mapbox 或 Google Maps SDK，展示活动地理位置，支持地图缩放、导航指引，后端提供活动地理坐标数据接口，支持地图范围内活动筛选功能，兼容移动端交互体验。",
+      "testStrategy": "地图加载性能测试，定位准确性测试，导航路径正确性验证，移动端地图交互测试。",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 8,
+      "title": "用户互动功能开发（评论、点赞、收藏、分享）",
+      "description": "实现活动评论、问答、点赞、收藏、分享及日历提醒等用户互动功能。",
+      "details": "设计并实现评论与问答接口，支持分页加载与实时更新；点赞与收藏功能实现状态管理；集成社交分享 SDK；实现日历提醒功能，支持用户订阅活动提醒，前端实现对应交互界面。",
+      "testStrategy": "功能流程测试，数据一致性验证，分享链接有效性测试，提醒通知测试。",
+      "priority": "medium",
+      "dependencies": [
+        3,
+        4,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 9,
+      "title": "主办方活动管理与数据统计模块",
+      "description": "开发主办方端活动管理界面及后台数据统计功能，支持活动编辑、上下架、浏览量等数据查看。",
+      "details": "前端实现可视化活动编辑界面，支持多媒体内容上传及票务信息录入；后端提供活动管理 API，统计浏览量、收藏量、购票点击、用户互动数据，支持数据导出及图表展示，权限控制确保仅主办方访问其活动数据。",
+      "testStrategy": "功能完整性测试，数据准确性验证，权限控制测试，导出功能测试。",
+      "priority": "medium",
+      "dependencies": [
+        3,
+        4,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 10,
+      "title": "后台管理系统开发",
+      "description": "实现后台管理系统，包括角色权限管理、活动审核、用户管理、推荐位及标签维护、数据统计报表等功能。",
+      "details": "基于 Next.js 或独立管理后台框架开发，支持系统管理员、审核员、运营人员等多角色登录；实现活动审核流程管理、举报处理、用户行为分析、首页推荐与标签权重管理，集成数据统计看板和报表导出功能，支持敏感词和系统配置管理。",
+      "testStrategy": "多角色权限测试，审核流程完整性测试，数据统计准确性测试，后台操作日志验证。",
+      "priority": "high",
+      "dependencies": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 11,
+      "title": "内容审核系统集成（AI+人工）",
+      "description": "集成 AI 文本识别与人工审核机制，实现活动内容自动识别与违规内容管理。",
+      "details": "接入第三方 AI 审核服务（如 AWS Rekognition、Google Cloud Vision 或自研模型），实现文本和图片内容自动审核，构建人工审核后台界面支持审核员处理异常内容，支持举报处理和用户封禁功能，确保内容合规。",
+      "testStrategy": "AI 审核准确率测试，人工审核流程测试，违规内容拦截验证，举报流程测试。",
+      "priority": "high",
+      "dependencies": [
+        10
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 12,
+      "title": "多语言国际化支持",
+      "description": "实现平台多语言支持，预留国际化接口，默认英文，支持后续扩展。",
+      "details": "前端使用 next-i18next 实现国际化，设计多语言资源文件结构，支持动态切换语言，后端接口支持多语言字段传输，数据库预留多语言字段，确保日期、货币格式本地化，做好多地区运营准备。",
+      "testStrategy": "多语言切换测试，资源文件加载测试，格式本地化验证，接口多语言兼容性测试。",
+      "priority": "low",
+      "dependencies": [
+        1,
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 13,
+      "title": "移动端优化与PWA支持",
+      "description": "实现响应式设计，优化移动端体验，支持渐进式网页应用（PWA）及本地通知。",
+      "details": "前端采用 Tailwind CSS 响应式布局，配置 PWA 功能（离线缓存、安装提示），集成本地推送通知功能，优化地图和交互性能，确保移动端流畅体验。",
+      "testStrategy": "移动设备适配测试，PWA 离线功能测试，推送通知测试，性能测试。",
+      "priority": "low",
+      "dependencies": [
+        5,
+        7
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 14,
+      "title": "系统安全与合规性保障",
+      "description": "实现全站 HTTPS、数据加密传输、用户隐私保护及合规功能（CCPA、GDPR）。",
+      "details": "配置 HTTPS 证书，后端实现数据加密存储与传输，设计用户隐私协议与数据访问权限，集成异常登录检测与 MFA，预留合规审计日志，确保平台符合美国及国际隐私法规要求。",
+      "testStrategy": "安全渗透测试，隐私协议合规性审核，异常登录模拟测试，MFA 功能验证。",
+      "priority": "high",
+      "dependencies": [
+        1,
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 15,
+      "title": "生产环境部署与监控配置",
+      "description": "完成生产环境部署，配置高可用架构，搭建监控告警体系及日志管理。",
+      "details": "基于 AWS 或 Vercel 完成生产环境部署，配置负载均衡与自动扩容，启用 CDN 边缘缓存，配置 Prometheus + Grafana 监控系统，设置日志集中管理与告警策略，确保系统稳定运行与快速响应。",
+      "testStrategy": "部署验证，负载测试，监控数据准确性测试，告警触发测试。",
+      "priority": "high",
+      "dependencies": [
+        1,
+        10,
+        14
+      ],
+      "status": "pending",
+      "subtasks": []
+    }
+  ]
+}

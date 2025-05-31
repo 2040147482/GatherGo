@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Production builds
+.next/
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Cursor MCP Configuration (contains API keys)
+.cursor/mcp.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Database
+*.sqlite
+*.sqlite3
+
+# Temporary files
+.tmp/
+temp/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# AWS
+.aws/
+
+# Docker
+.docker/
+
+# Misc
+*.tgz
+*.tar.gz

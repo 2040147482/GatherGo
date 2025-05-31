@@ -1,0 +1,27 @@
+# GatherGo 代码所有者配置
+# 详情参考: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# 全局代码审查者
+* @YOUR_USERNAME
+
+# 前端代码审查
+/frontend/ @YOUR_USERNAME
+/frontend/src/components/ @YOUR_USERNAME
+
+# 后端代码审查
+/backend/ @YOUR_USERNAME
+/backend/src/ @YOUR_USERNAME
+
+# 基础设施和配置文件
+/.github/ @YOUR_USERNAME
+/docker-compose.yml @YOUR_USERNAME
+/package.json @YOUR_USERNAME
+
+# 文档文件
+/docs/ @YOUR_USERNAME
+/README.md @YOUR_USERNAME
+/*.md @YOUR_USERNAME
+
+# 数据库相关
+/backend/src/database/ @YOUR_USERNAME
+/backend/prisma/ @YOUR_USERNAME

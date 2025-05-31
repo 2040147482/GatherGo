@@ -1,0 +1,11 @@
+# Task ID: 11
+# Title: 内容审核系统集成（AI+人工）
+# Status: pending
+# Dependencies: 10
+# Priority: high
+# Description: 集成 AI 文本识别与人工审核机制，实现活动内容自动识别与违规内容管理。
+# Details:
+接入第三方 AI 审核服务（如 AWS Rekognition、Google Cloud Vision 或自研模型），实现文本和图片内容自动审核，构建人工审核后台界面支持审核员处理异常内容，支持举报处理和用户封禁功能，确保内容合规。
+
+# Test Strategy:
+AI 审核准确率测试，人工审核流程测试，违规内容拦截验证，举报流程测试。

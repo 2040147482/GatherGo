@@ -1,0 +1,11 @@
+# Task ID: 4
+# Title: 活动发布与管理后端API开发
+# Status: pending
+# Dependencies: 2, 3
+# Priority: high
+# Description: 开发活动发布、编辑、上下架、审核状态管理等核心后端接口。
+# Details:
+基于 NestJS 实现 RESTful API，支持用户提交活动信息（含表单数据、图片上传、标签选择、票务设置），接口支持活动状态流转（待审核、审核通过、驳回、上线、下架），集成 AI 审核系统接口，支持活动数据统计字段更新。
+
+# Test Strategy:
+接口单元测试，模拟活动发布全流程，验证状态变更及审核逻辑，接口安全与权限验证。

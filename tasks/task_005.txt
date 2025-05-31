@@ -1,0 +1,11 @@
+# Task ID: 5
+# Title: 活动浏览与详情页前端开发
+# Status: pending
+# Dependencies: 1, 4
+# Priority: medium
+# Description: 实现首页推荐、活动列表、多维筛选、活动详情页展示及用户互动功能。
+# Details:
+基于 Next.js 和 Tailwind CSS 开发响应式页面，首页实现智能排序推荐、轮播图、分类入口、城市定位；活动列表支持关键词搜索、类型、城市、日期、价格、标签等筛选；详情页展示活动基础信息、图文介绍、地图定位（集成 Mapbox/Google Maps）、购票跳转、评论/问答/分享功能。
+
+# Test Strategy:
+前端集成测试，UI 交互测试，响应式适配测试，地图定位准确性验证，购票跳转链接测试。

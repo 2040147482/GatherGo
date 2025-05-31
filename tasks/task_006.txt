@@ -1,0 +1,11 @@
+# Task ID: 6
+# Title: 搜索功能与多维筛选实现
+# Status: pending
+# Dependencies: 2, 4, 5
+# Priority: medium
+# Description: 搭建基于 Algolia 或 Elasticsearch 的全文搜索与多维筛选功能，支持高效活动检索。
+# Details:
+设计搜索索引结构，集成 Elasticsearch 或 Algolia，后端同步活动数据至搜索引擎，支持关键词搜索、类型、城市、日期、价格、标签等多维筛选条件，前端调用搜索接口实现动态筛选结果展示。
+
+# Test Strategy:
+搜索准确性测试，筛选条件组合测试，性能压力测试，搜索结果排序验证。
